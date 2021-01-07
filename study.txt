@@ -1,0 +1,8 @@
+Note: Functions that take multiple arguments end up having more and more arrows. For example, here is a function that takes two arguments:
+
+> String.repeat
+<function> : Int -> String -> String
+
+
+>  
+Giving two arguments like String.repeat 3 "ha" will produce "hahaha". It works to think of -> as a weird way to separate arguments, but I explain the real reasoning here. It is pretty neat!
