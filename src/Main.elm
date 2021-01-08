@@ -45,17 +45,25 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div[][
+  div [] [
     div [style "text-align" "center"
-    ,style "padding-top" "0.5cm"
-    ,style "padding-bottom" "1cm"
-    ,style "background-color" "red"
-    ,style "font-size" "35px"] [ text "Industrial Facility Tracing System" ]
-    ,span [][text "shine menu 1",
-    span [style "padding-left" "5cm"][text "love you"],
-    span [style "padding-left" "5cm"][text "love you too"],
+               , style "background-color" "rgb(44 53 49)"
+               , style "color" "rgb(255 255 255)"
+               , style "font-size" "4em" ][ text "Industrial Facility Tracing System" ],
+    div [style "background-color" "rgb(216 176 140)"]
+        [ b [ style "font-size" "28px"
+            , style "font-size" "2em"
+            , style "padding-left" "5cm"][ text "Menu A"],
+          b [ style "font-size" "2em"
+            , style "padding-left" "8cm"][ text "Menu B"],
+          b [ style "font-size" "2em"
+            , style "padding-left" "8cm"][ text "Menu C"]],
     br[][],
-    span [][text "muse menu 1"]]
+    span[style "background-color" "rgb(210 233 226)" ][div [ style "font-size" "2em"
+                                                           , style "text-align" "left"][text "Menu 1"],
+                                                       div [ style "font-size" "2em"
+                                                           , style "text-align" "left"][text "Menu 2"] ]
+
     ]
   
   
