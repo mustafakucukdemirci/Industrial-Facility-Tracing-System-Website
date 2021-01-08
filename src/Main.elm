@@ -51,22 +51,20 @@ view model =
                , style "color" "rgb(255 255 255)"
                , style "font-size" "4em" ][ text "Industrial Facility Tracing System" ],
     div [style "background-color" "rgb(216 176 140)"]
-        [ b [ style "font-size" "28px"
-            , style "font-size" "2em"
-            , style "padding-left" "5cm"][ text "Menu A"],
+        [ b [ style "font-size" "2em"
+            , style "padding-left" "10cm"][ text "Menu A"],
           b [ style "font-size" "2em"
-            , style "padding-left" "8cm"][ text "Menu B"],
+            , style "padding-left" "10cm"][ text "Menu B"],
           b [ style "font-size" "2em"
-            , style "padding-left" "8cm"][ text "Menu C"]],
+            , style "padding-left" "10cm"][ text "Menu C"]],
     br[][],
-    span[style "background-color" "rgb(210 233 226)" ][div [ style "font-size" "2em"
-                                                           , style "text-align" "left"][text "Menu 1"],
-                                                       div [ style "font-size" "2em"
-                                                           , style "text-align" "left"][text "Menu 2"] ]
+    span[style "background-color" "rgb(210 233 226)"][span [ style "font-size" "2em", style "padding-left" "5cm"
+                                                           , style "text-align" "top"][text "Menu 1"],
+                                                      br[][],
+                                                      span [ style "font-size" "2em", style "padding-left" "5cm"
+                                                           , style "text-align" "top"][text "Menu 2"] ]
 
     ]
-  
-  
 
 
     
