@@ -1,9 +1,11 @@
 module Main exposing (..)
+
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
+import BarChart exposing (..)
 
 
 -- MAIN
@@ -61,8 +63,13 @@ view model =
     span[style "background-color" "rgb(210 233 226)"][span [ style "font-size" "2em", style "padding-left" "5cm"
                                                            , style "text-align" "top"][text "Menu 1"],
                                                       br[][],
+                                                          span[style "background-color" "rgb(210 233 226)"][span [ style "font-size" "2em", style "padding-left" "5cm"
+                                                           , style "text-align" "top"][text "Menu 1"],
+                                                      br[][],
                                                       span [ style "font-size" "2em", style "padding-left" "5cm"
-                                                           , style "text-align" "top"][text "Menu 2"] ]
+                                                           , style "text-align" "top"][text "Menu 2"] ],
+    --graph part
+    span[][BarChart.main, p[style "padding-left" "5cm"][text "data 1 >> x"]]
 
     ]
 

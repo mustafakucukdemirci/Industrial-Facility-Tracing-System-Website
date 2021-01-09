@@ -17,17 +17,17 @@ import TypedSvg.Types exposing (AnchorAlignment(..), Transform(..))
 
 w : Float
 w =
-    900
+    400
 
 
 h : Float
 h =
-    450
+    100
 
 
 padding : Float
 padding =
-    30
+    25
 
 
 xScale : List ( Time.Posix, Float ) -> BandScale Time.Posix
@@ -69,9 +69,7 @@ column scale ( date, value ) =
         , text_
             [ x <| Scale.convert (Scale.toRenderable dateFormat scale) date
             , y <| Scale.convert yScale value - 5
-            , textAnchor AnchorMiddle
-            ]
-            [ text <| String.fromFloat value ]
+            , textAnchor AnchorMiddle ][ text <| String.fromFloat value ]
         ]
 
 
@@ -96,11 +94,21 @@ view model =
 main : Svg msg
 main =
     view timeSeries
+    
+{- data Id and their variables for the graph example 
+database : List(Int, Float)
+database =
+    [( 1234, 5)
+         , ( 5555, 2 )
+         , ( 9876, 3.5 )
+         , ( 9292, 2 )
+    ]
+-}
 
-
+{- This is a block comment and will be ignored by Elm.   -}
 timeSeries : List ( Time.Posix, Float )
 timeSeries =
-    [ ( Time.millisToPosix 1448928000000, 2.5 )
+    [ ( Time.millisToPosix 1448928000000, 5)
     , ( Time.millisToPosix 1451606400000, 2 )
     , ( Time.millisToPosix 1452211200000, 3.5 )
     , ( Time.millisToPosix 1452816000000, 2 )
@@ -108,3 +116,4 @@ timeSeries =
     , ( Time.millisToPosix 1454284800000, 1 )
     , ( Time.millisToPosix 1456790400000, 1.2 )
     ]
+
