@@ -5258,40 +5258,6 @@ var $author$project$Main$view = function (model) {
 							]))
 					])),
 				A2($elm$html$Html$br, _List_Nil, _List_Nil),
-				A2(
-				$elm$html$Html$span,
-				_List_fromArray(
-					[
-						A2($elm$html$Html$Attributes$style, 'background-color', 'rgb(210 233 226)')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								A2($elm$html$Html$Attributes$style, 'font-size', '2em'),
-								A2($elm$html$Html$Attributes$style, 'padding-left', '5cm'),
-								A2($elm$html$Html$Attributes$style, 'text-align', 'top')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Menu 1')
-							])),
-						A2($elm$html$Html$br, _List_Nil, _List_Nil),
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								A2($elm$html$Html$Attributes$style, 'font-size', '2em'),
-								A2($elm$html$Html$Attributes$style, 'padding-left', '5cm'),
-								A2($elm$html$Html$Attributes$style, 'text-align', 'top')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Menu 2')
-							]))
-					]))
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$sandbox(
@@ -5312,7 +5278,161 @@ catch (e)
   pre.innerText = e;
   throw e;
 }
+
 </script>
+<div style="float:left;margin-right:20px;" ><button id="addEmployeeButton">add Employee</button><div></div>
+	<button id="addWorkButton">add Work</button><div></div>
+	<button id="assignJobButton">Assign Job</button></div>
+
+<div id="content"></div>
+
+
 
 </body>
+<script>
+var Employees = []
+var Works = []
+var EmployeeId = 100000;
+var WorkId = 0;
+
+class Employee{
+    constructor(name,salary){
+        this.id = EmployeeId;
+        this.name = name;
+        this.salary = salary;
+		EmployeeId += 1;
+		this.assignedWorks = []
+    }
+}
+class Work{
+    constructor(requiredPart){
+        this.requiredPart = requiredPart;
+        this.completedPart = 0;
+    }
+    isDone(){
+        if(this.completedPart>=this.requiredPart){
+            return True;
+        }
+        else{
+            return False;
+        }
+    }
+    makePart(partsDone){
+        if(! isDone()){
+            this.completedPart += partsDone;
+        }
+    }
+}
+function addEmployee(name,salary){
+	Employees.push(new Employee(name,salary));
+}
+function addWork(reqParts){
+	Works.push(new Work(reqParts));
+	console.log(Works);
+}
+function assignWork(employeeId,workId){
+	for(let i =0;i<Employees.length;i++){
+		if(Employees[i].id == employeeId){
+			Employees[i].assignedWorks.push(workId);
+			return 0;
+		}
+	}
+	console.log("Employee Cannot Find");
+}
+
+
+function clearContent(){
+	document.getElementById("content").innerHTML="";
+}
+document.getElementById("addEmployeeButton").addEventListener("click",function(e){
+	clearContent();
+	let nameLabel = document.createElement('p');
+	nameLabel.textContent = "Employee Name:";
+	nameLabel.setAttribute("style","display:inline");
+	document.getElementById("content").appendChild(nameLabel);
+
+	let nameInput = document.createElement('Input');
+	nameInput.id = "nameInput";
+	document.getElementById("content").appendChild(nameInput);
+	document.getElementById("content").appendChild(document.createElement('div'));
+
+	let salaryLabel = document.createElement('p');
+	salaryLabel.textContent = "Employee Salary:";
+	salaryLabel.setAttribute("style","display:inline");
+	document.getElementById("content").appendChild(salaryLabel);
+
+	let salaryInput = document.createElement('Input');
+	salaryInput.id = "salaryInput";
+	document.getElementById("content").appendChild(salaryInput);
+	document.getElementById("content").appendChild(document.createElement('div'));
+
+	let addEmployeeButton = document.createElement('Button');
+	addEmployeeButton.id = "addEmployeeButton";
+	addEmployeeButton.textContent = "Add Employee";
+	addEmployeeButton.addEventListener("click",function(e){
+		addEmployee(document.getElementById("nameInput").value,document.getElementById("salaryInput").value)
+	});
+	document.getElementById("content").appendChild(addEmployeeButton);
+})
+document.getElementById("addWorkButton").addEventListener("click",function(e){
+	clearContent();
+	let requiredPartLabel = document.createElement('p');
+	requiredPartLabel.textContent = "Required Part:";
+	requiredPartLabel.setAttribute("style","display:inline");
+	document.getElementById("content").appendChild(requiredPartLabel);
+
+	let requiredPartInput = document.createElement('Input');
+	requiredPartInput.id = "requiredPartInput";
+	document.getElementById("content").appendChild(requiredPartInput);
+	document.getElementById("content").appendChild(document.createElement('div'));
+
+	let workIdLabel = document.createElement('p');
+	workIdLabel.textContent = "Work ID:";
+	workIdLabel.setAttribute("style","display:inline;margin-right:32px;");
+	document.getElementById("content").appendChild(workIdLabel);
+
+	let workIdInput = document.createElement('Input');
+	workIdInput.id = "salaryInput";
+	document.getElementById("content").appendChild(workIdInput);
+	document.getElementById("content").appendChild(document.createElement('div'));
+
+	let addWorkButton = document.createElement('Button');
+	addWorkButton.id = "addWorkButton";
+	addWorkButton.textContent = "Add Work";
+	addWorkButton.addEventListener("click",function(e){
+		addWork(document.getElementById("requiredPartInput").value)
+	});
+	document.getElementById("content").appendChild(addWorkButton);
+})
+document.getElementById("assignJobButton").addEventListener("click",function(e){
+	clearContent();
+	let employeeIdLabel = document.createElement('p');
+	employeeIdLabel.textContent = "Employee ID:";
+	employeeIdLabel.setAttribute("style","display:inline");
+	document.getElementById("content").appendChild(employeeIdLabel);
+
+	let employeeIdInput = document.createElement('Input');
+	employeeIdInput.id = "employeeIdInput";
+	document.getElementById("content").appendChild(employeeIdInput);
+	document.getElementById("content").appendChild(document.createElement('div'));
+
+	let WorkIdLabel = document.createElement('p');
+	WorkIdLabel.textContent = "Work ID:";
+	WorkIdLabel.setAttribute("style","display:inline");
+	document.getElementById("content").appendChild(WorkIdLabel);
+
+	let WorkIdInput = document.createElement('Input');
+	WorkIdInput.id = "WorkIdInput";
+	document.getElementById("content").appendChild(WorkIdInput);
+	document.getElementById("content").appendChild(document.createElement('div'));
+
+	let assignWorkButton = document.createElement('Button');
+	assignWorkButton.id = "assignWorkButton";
+	assignWorkButton.textContent = "Assign Work";
+	assignWorkButton.addEventListener("click",function(e){
+		assignWork(document.getElementById("requiredPartInput").value)
+	});
+	document.getElementById("content").appendChild(assignWorkButton);
+})
+</script>
 </html>
