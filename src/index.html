@@ -5396,10 +5396,10 @@ function employeeView(){
 	let emp = []
 	for(let i=0;i<parseInt(Employees.length);i++){
 		console.log(parseInt(Employees[i].salary)*Math.random()+0.6*parseInt(Employees[i].salary));
-		emp.push({name:Employees[i].name, data:[parseInt(Employees[i].salary)*0.000001*Math.random()+parseInt(Employees[i].salary),
-												parseInt(Employees[i].salary)*0.000003*Math.random()+parseInt(Employees[i].salary),
-												parseInt(Employees[i].salary)*0.000005*Math.random()+parseInt(Employees[i].salary),
-												parseInt(Employees[i].salary)*0.00001*Math.random()+parseInt(Employees[i].salary)]})
+		emp.push({name:Employees[i].name, data:[parseInt(Employees[i].salary)*0.00001*Math.random()+parseInt(Employees[i].salary),
+												parseInt(Employees[i].salary)*0.0001*Math.random()+parseInt(Employees[i].salary),
+												parseInt(Employees[i].salary)*0.001*Math.random()+parseInt(Employees[i].salary),
+												parseInt(Employees[i].salary)*0.01*Math.random()+parseInt(Employees[i].salary)]})
 	} 
 	dataChart(emp,"content","Employee Salaries");
 
