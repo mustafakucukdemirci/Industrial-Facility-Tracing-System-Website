@@ -4703,6 +4703,7 @@ var $elm$core$Basics$logBase = F2(
 	function (base, number) {
 		return _Basics_log(number) / _Basics_log(base);
 	});
+	
 var $elm$core$Basics$toFloat = _Basics_toFloat;
 var $elm$core$Array$shiftStep = $elm$core$Basics$ceiling(
 	A2($elm$core$Basics$logBase, 2, $elm$core$Array$branchFactor));
@@ -5209,7 +5210,8 @@ var $author$project$Main$view = function (model) {
 						A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
 						A2($elm$html$Html$Attributes$style, 'background-color', 'rgb(44 53 49)'),
 						A2($elm$html$Html$Attributes$style, 'color', 'rgb(255 255 255)'),
-						A2($elm$html$Html$Attributes$style, 'font-size', '4em')
+						A2($elm$html$Html$Attributes$style, 'font-size', '4em'),
+						A2($elm$html$Html$Attributes$style, 'display', 'block')
 					]),
 				_List_fromArray(
 					[
@@ -5219,11 +5221,11 @@ var $author$project$Main$view = function (model) {
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						A2($elm$html$Html$Attributes$style, 'background-color', 'rgb(216 176 140)')
+						//A2($elm$html$Html$Attributes$style, 'background-color', 'rgb(216 176 140)')
 					]),
 				_List_fromArray(
 					[
-						A2(
+						/*A2(
 						$elm$html$Html$b,
 						_List_fromArray(
 							[
@@ -5255,7 +5257,7 @@ var $author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('Menu C')
-							]))
+							]))*/
 					])),
 				A2($elm$html$Html$br, _List_Nil, _List_Nil),
 			]));
@@ -5280,11 +5282,36 @@ catch (e)
 }
 
 </script>
-<div style="float:left;margin-right:20px;" ><button id="addEmployeeButton">add Employee</button><div></div>
-	<button id="addWorkButton">add Work</button><div></div>
-	<button id="assignJobButton">Assign Job</button></div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
-<div id="content"></div>
+<div style="float:left;margin-right:20px;" >
+	<div style="display:block">
+		<button style="margin-left: 5cm; background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:10px 30px; font-weight:bold; font-family:Arial; text-shadow:0px 1px 0px #5b8a3c;"
+				id="viewWorkDetailsButton">View Work Details</button>
+        <button style="margin-left: 5cm; background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:10px 30px; font-weight:bold; font-family:Arial; text-shadow:0px 1px 0px #5b8a3c;"
+        id="viewEmployeeButton">View Employee Details</button>
+        <button style="margin-left: 5cm; background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:10px 30px; font-weight:bold; font-family:Arial; text-shadow:0px 1px 0px #5b8a3c;"
+        id="viewWorkListButton">View Work List</button>
+        <button style="margin-left: 5cm; background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:10px 30px; font-weight:bold; font-family:Arial; text-shadow:0px 1px 0px #5b8a3c;"
+        id="viewEmployeeListButton">View Employee List</button>
+	</div>
+	
+	<div style="float: left;margin-right: 2cm;margin-top: 1cm;">
+		<button  style="display:block; background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:15px 28px; font-family:Arial;
+	font-size:14px; font-weight:bold; text-shadow:0px 1px 0px #5b8a3c;"
+				 id="addEmployeeButton">Add Employee</button>
+		<button  style="display:block;background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:15px 44px; font-family:Arial;
+	font-size:14px; font-weight:bold; text-shadow:0px 1px 0px #5b8a3c;"
+				 id="addWorkButton">Add Work</button><div></div>
+		<button  style="display:block;background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:15px 39px; font-family:Arial;
+	font-size:14px; font-weight:bold; text-shadow:0px 1px 0px #5b8a3c;"
+				 id="assignJobButton">Assign Job</button><div></div>
+		<button style="display:block;background-color: #D2E9E2; border-radius:20px; border:1px solid #17571d; padding:15px 30px; font-family:Arial;
+	font-size:14px; font-weight:bold; text-shadow:0px 1px 0px #5b8a3c;"
+				id="CompleteJobButton">Complete Job</button>
+	</div>
+	<div style="margin-top: 1cm; display: inline-block;" id="content"></div>
+</div>
 
 
 
@@ -5293,7 +5320,7 @@ catch (e)
 var Employees = []
 var Works = []
 var EmployeeId = 100000;
-var WorkId = 0;
+var WorkId = 1;
 
 class Employee{
     constructor(name,salary){
@@ -5307,28 +5334,75 @@ class Employee{
 class Work{
     constructor(requiredPart){
         this.requiredPart = requiredPart;
-        this.completedPart = 0;
+		this.completedPart = 0;
+		this.workId = WorkId;
+		WorkId += 1; 
     }
     isDone(){
         if(this.completedPart>=this.requiredPart){
-            return True;
+            return true;
         }
         else{
-            return False;
+            return false;
         }
     }
     makePart(partsDone){
-        if(! isDone()){
-            this.completedPart += partsDone;
+		if(! this.isDone()){
+            this.completedPart += parseInt(partsDone);
         }
     }
 }
+function workTableCreate(){
+	var tableString = "<table style='border:1px solid black;text-align:center;'>",
+    body = document.getElementById('content'),
+    div = document.createElement('div');
+	tableString += "<tr><th style='padding:1cm;padding-bottom:0.5cm;'>Work ID</th><th style='padding:1cm;padding-bottom:0.5cm;'>Required Part</th><th style='padding:1cm;padding-bottom:0.5cm;'>Completed Part</th></tr>";
+    for (row = 0; row < Works.length; row += 1) {
+		tableString += "<tr>";
+		console.log(Works[row]);
+        tableString += "<td >" +  String(Works[row].workId) +"</td><td>" + Works[row].requiredPart + "</td><td>"+Works[row].completedPart+"</td>";
+    tableString += "</tr>";}
+
+tableString += "</table>";
+div.innerHTML = tableString;
+body.appendChild(div);
+}
+
+function employeeTableCreate(){
+	var tableString = "<table style='border:1px solid black;text-align:center;'>",
+    body = document.getElementById('content'),
+    div = document.createElement('div');
+	tableString += "<tr style='padding:1cm;padding-bottom:0.5cm;'><th style='padding:inherit'>Employee ID</th><th style='padding:inherit'>Name</th><th style='padding:inherit'>Salary</th><th style='padding:inherit'>Assigned Works</th></tr>";
+    for (row = 0; row < Employees.length; row += 1) {
+		tableString += "<tr>";
+		console.log(Works[row]);
+        tableString += "<td >" +  String(Employees[row].id) +"</td><td>" + String(Employees[row].name)  + "</td><td>"+String(Employees[row].salary) +"</td><td>"+String(Employees[row].assignedWorks)+"</td>" ;
+    tableString += "</tr>";}
+
+	tableString += "</table>";
+	div.innerHTML = tableString;
+	body.appendChild(div);
+}
+
+
 function addEmployee(name,salary){
 	Employees.push(new Employee(name,salary));
 }
 function addWork(reqParts){
 	Works.push(new Work(reqParts));
 	console.log(Works);
+}
+function employeeView(){
+	let emp = []
+	for(let i=0;i<parseInt(Employees.length);i++){
+		console.log(parseInt(Employees[i].salary)*Math.random()+0.6*parseInt(Employees[i].salary));
+		emp.push({name:Employees[i].name, data:[parseInt(Employees[i].salary)*Math.random()-0.5*parseInt(Employees[i].salary),
+												parseInt(Employees[i].salary)*Math.random()-0.3*parseInt(Employees[i].salary),
+												parseInt(Employees[i].salary)*Math.random()-0.1*parseInt(Employees[i].salary),
+												parseInt(Employees[i].salary)]})
+	} 
+	dataChart(emp,"content","Employee Salaries");
+
 }
 function assignWork(employeeId,workId){
 	for(let i =0;i<Employees.length;i++){
@@ -5339,8 +5413,73 @@ function assignWork(employeeId,workId){
 	}
 	console.log("Employee Cannot Find");
 }
+function completeWork(workId,completedPart){
+	for(let i =0;i<Works.length;i++){
+		if(Works[i].workId == workId){
+			Works[i].makePart(completedPart);
+		}
+	}
+}
+function dataChart(data,container,_title){
+	console.log(data)
+	Highcharts.chart(container, {
+
+title: {
+	text: _title
+},
+
+xAxis: {
+	accessibility: {
+		rangeDescription: 'Range: 2014 to 2017'
+	}
+},
+
+legend: {
+	layout: 'vertical',
+	align: 'right',
+	verticalAlign: 'middle'
+},
 
 
+series: data
+
+
+
+})}
+function pieChart(data,container,_title){
+    Highcharts.chart(container, {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: _title
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            data
+        }]
+    });
+}
 function clearContent(){
 	document.getElementById("content").innerHTML="";
 }
@@ -5386,16 +5525,6 @@ document.getElementById("addWorkButton").addEventListener("click",function(e){
 	document.getElementById("content").appendChild(requiredPartInput);
 	document.getElementById("content").appendChild(document.createElement('div'));
 
-	let workIdLabel = document.createElement('p');
-	workIdLabel.textContent = "Work ID:";
-	workIdLabel.setAttribute("style","display:inline;margin-right:32px;");
-	document.getElementById("content").appendChild(workIdLabel);
-
-	let workIdInput = document.createElement('Input');
-	workIdInput.id = "salaryInput";
-	document.getElementById("content").appendChild(workIdInput);
-	document.getElementById("content").appendChild(document.createElement('div'));
-
 	let addWorkButton = document.createElement('Button');
 	addWorkButton.id = "addWorkButton";
 	addWorkButton.textContent = "Add Work";
@@ -5405,34 +5534,126 @@ document.getElementById("addWorkButton").addEventListener("click",function(e){
 	document.getElementById("content").appendChild(addWorkButton);
 })
 document.getElementById("assignJobButton").addEventListener("click",function(e){
-	clearContent();
-	let employeeIdLabel = document.createElement('p');
-	employeeIdLabel.textContent = "Employee ID:";
-	employeeIdLabel.setAttribute("style","display:inline");
-	document.getElementById("content").appendChild(employeeIdLabel);
+		clearContent();
+		let employeeIdLabel = document.createElement('p');
+		employeeIdLabel.textContent = "Employee ID:";
+		employeeIdLabel.setAttribute("style","display:inline");
+		document.getElementById("content").appendChild(employeeIdLabel);
 
-	let employeeIdInput = document.createElement('Input');
-	employeeIdInput.id = "employeeIdInput";
-	document.getElementById("content").appendChild(employeeIdInput);
-	document.getElementById("content").appendChild(document.createElement('div'));
+		let employeeIdInput = document.createElement('Input');
+		employeeIdInput.id = "employeeIdInput";
+		document.getElementById("content").appendChild(employeeIdInput);
+		document.getElementById("content").appendChild(document.createElement('div'));
 
-	let WorkIdLabel = document.createElement('p');
-	WorkIdLabel.textContent = "Work ID:";
-	WorkIdLabel.setAttribute("style","display:inline");
-	document.getElementById("content").appendChild(WorkIdLabel);
+		let WorkIdLabel = document.createElement('p');
+		WorkIdLabel.textContent = "Work ID:";
+		WorkIdLabel.setAttribute("style","display:inline");
+		document.getElementById("content").appendChild(WorkIdLabel);
 
-	let WorkIdInput = document.createElement('Input');
-	WorkIdInput.id = "WorkIdInput";
-	document.getElementById("content").appendChild(WorkIdInput);
-	document.getElementById("content").appendChild(document.createElement('div'));
+		let WorkIdInput = document.createElement('Input');
+		WorkIdInput.id = "WorkIdInput";
+		document.getElementById("content").appendChild(WorkIdInput);
+		document.getElementById("content").appendChild(document.createElement('div'));
 
-	let assignWorkButton = document.createElement('Button');
-	assignWorkButton.id = "assignWorkButton";
-	assignWorkButton.textContent = "Assign Work";
-	assignWorkButton.addEventListener("click",function(e){
-		assignWork(document.getElementById("requiredPartInput").value)
-	});
-	document.getElementById("content").appendChild(assignWorkButton);
+		let assignWorkButton = document.createElement('Button');
+		assignWorkButton.id = "assignWorkButton";
+		assignWorkButton.textContent = "Assign Work";
+		assignWorkButton.addEventListener("click",function(e){
+			assignWork(document.getElementById("employeeIdInput").value,document.getElementById("WorkIdInput").value);
+		});
+		document.getElementById("content").appendChild(assignWorkButton);})
+
+	document.getElementById("CompleteJobButton").addEventListener("click",function(e){
+		clearContent();
+		let WorkIdLabel = document.createElement('p');
+		WorkIdLabel.textContent = "Work ID:";
+		WorkIdLabel.setAttribute("style","display:inline");
+		document.getElementById("content").appendChild(WorkIdLabel);
+
+		let WorkIdInput = document.createElement('Input');
+		WorkIdInput.id = "WorkIdInput";
+		document.getElementById("content").appendChild(WorkIdInput);
+		document.getElementById("content").appendChild(document.createElement('div'));
+
+		let completedPartLabel = document.createElement('p');
+		completedPartLabel.textContent = "Completed Part Number:";
+		completedPartLabel.setAttribute("style","display:inline;margin-right:32px;");
+		document.getElementById("content").appendChild(completedPartLabel);
+
+		let completedPartInput = document.createElement('Input');
+		completedPartInput.id = "completedPartInput";
+		document.getElementById("content").appendChild(completedPartInput);
+		document.getElementById("content").appendChild(document.createElement('div'));
+
+		let completedPartsButton = document.createElement('Button');
+		completedPartsButton.id = "CompleteParts";
+		completedPartsButton.textContent = "Add Completed Parts";
+		completedPartsButton.addEventListener("click",function(e){
+			completeWork(document.getElementById("WorkIdInput").value,document.getElementById("completedPartInput").value);
+		});
+		document.getElementById("content").appendChild(completedPartsButton);
 })
+
+document.getElementById("viewWorkDetailsButton").addEventListener("click",function(e){
+	clearContent();		
+	let finishedWorks = 0;
+	let uncompleteWorks = 0;
+	let pendingWorks = 0;
+	console.log("girmedi",Works.length);
+	for(let i = 0;i<parseInt(Works.length);i++){
+		console.log("girmedi",Works.length);
+
+		if(Works[i].isDone()){
+			finishedWorks+=1;
+		}
+		else if(Works[i].completedPart != 0){
+			uncompleteWorks += 1;
+		}
+		else{
+			pendingWorks += 1;
+		}
+	}
+	let data = [{
+                name: 'Finished Works',
+                y: finishedWorks/Works.length
+            }, {
+                name: 'Uncomplete Works',
+                y: uncompleteWorks/Works.length
+            }, {
+                name: 'Pending Works',
+                y: pendingWorks/Works.length
+            }];
+
+	pieChart(data,"content","Work Distrubition");
+		
+	let data2 = [{
+				name: 'Employee Count',
+				y: Employees.length},
+				{
+				name: 'Pending Works',
+				y: pendingWorks
+				}]
+
+	container2 = document.createElement('span');
+	container2.id = "content2";
+	container2.setAttribute("style","display:inline");
+	document.getElementById("content").appendChild(container2);
+	pieChart(data2,"content2","Work Load");
+	
+})
+document.getElementById("viewEmployeeButton").addEventListener("click",function(e){
+	clearContent();
+	employeeView();
+})
+document.getElementById("viewWorkListButton").addEventListener("click",function(e){
+	clearContent();
+	workTableCreate();
+})
+document.getElementById("viewEmployeeListButton").addEventListener("click",function(e){
+	clearContent();
+	employeeTableCreate();
+})
+
+
 </script>
 </html>
